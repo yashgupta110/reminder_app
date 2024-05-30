@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
 import 'package:provider/provider.dart';
 import 'package:reminder_app/models/reminder.dart';
 import 'package:reminder_app/notification/notification_helper.dart';
@@ -92,7 +93,7 @@ class AddReminderScreenState extends State<AddReminderScreen> {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: <Widget>[
-            TextField(
+            TextField(      
               controller: _titleController,
               decoration: const InputDecoration(labelText: 'Title'),
             ),
@@ -109,6 +110,9 @@ class AddReminderScreenState extends State<AddReminderScreen> {
                     _selectedDate == null
                         ? 'Choose Date'
                         : '${_selectedDate!.toLocal()}'.split(' ')[0],
+                    style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        color: Theme.of(context).colorScheme.primary),
                   ),
                 ),
                 TextButton(
@@ -117,12 +121,22 @@ class AddReminderScreenState extends State<AddReminderScreen> {
                     _selectedTime == null
                         ? 'Choose Time'
                         : _selectedTime!.format(context),
+                    style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        color: Theme.of(context).colorScheme.primary),
                   ),
                 ),
               ],
             ),
-            
             DropdownButton<String>(
+              borderRadius: BorderRadius.circular(10),
+              style: TextStyle(
+                fontWeight: FontWeight.w700,
+                fontSize: 16,
+                color: Theme.of(context).colorScheme.onSecondaryContainer,
+              ),
+              elevation: 16,
+              dropdownColor: Theme.of(context).colorScheme.secondaryContainer,
               value: _priority,
               items: <String>['High', 'Medium', 'Low'].map((String value) {
                 return DropdownMenuItem<String>(
@@ -137,8 +151,14 @@ class AddReminderScreenState extends State<AddReminderScreen> {
               },
             ),
             ElevatedButton(
+              style: ButtonStyle(
+                  backgroundColor: WidgetStatePropertyAll(
+                      Theme.of(context).colorScheme.primaryContainer)),
               onPressed: _submitData,
-              child: const Text('Save Reminder'),
+              child: const Text(
+                'Save Reminder',
+                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16 ,color: Colors.black),
+              ),
             ),
           ],
         ),

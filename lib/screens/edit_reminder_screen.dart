@@ -96,7 +96,12 @@ class EditReminderScreenState extends State<EditReminderScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Edit Reminder'),
+        centerTitle: true,
+        backgroundColor: Theme.of(context).colorScheme.tertiaryContainer,
+        title: const Text(
+          'Edit Reminder',
+          style: TextStyle(fontWeight: FontWeight.w700),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -111,32 +116,41 @@ class EditReminderScreenState extends State<EditReminderScreen> {
               decoration: const InputDecoration(labelText: 'Description'),
             ),
             Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 TextButton(
                   onPressed: _selectDate,
-                  child: const Text('Choose Date'),
+                  child: Text(
+                    _selectedDate == null
+                        ? 'Choose Date'
+                        : '${_selectedDate!.toLocal()}'.split(' ')[0],
+                    style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        color: Theme.of(context).colorScheme.primary),
+                  ),
                 ),
-                Text(
-                  _selectedDate == null
-                      ? 'No date chosen!'
-                      : '${_selectedDate!.toLocal()}'.split(' ')[0],
-                ),
-              ],
-            ),
-            Row(
-              children: <Widget>[
                 TextButton(
                   onPressed: _selectTime,
-                  child: const Text('Choose Time'),
-                ),
-                Text(
-                  _selectedTime == null
-                      ? 'No time chosen!'
-                      : _selectedTime!.format(context),
+                  child: Text(
+                    _selectedTime == null
+                        ? 'Choose Time'
+                        : _selectedTime!.format(context),
+                    style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        color: Theme.of(context).colorScheme.primary),
+                  ),
                 ),
               ],
             ),
             DropdownButton<String>(
+              borderRadius: BorderRadius.circular(10),
+              style: TextStyle(
+                fontWeight: FontWeight.w700,
+                fontSize: 16,
+                color: Theme.of(context).colorScheme.onSecondaryContainer,
+              ),
+              elevation: 16,
+              dropdownColor: Theme.of(context).colorScheme.secondaryContainer,
               value: _priority,
               items: <String>['High', 'Medium', 'Low'].map((String value) {
                 return DropdownMenuItem<String>(
@@ -151,8 +165,17 @@ class EditReminderScreenState extends State<EditReminderScreen> {
               },
             ),
             ElevatedButton(
+              style: ButtonStyle(
+                  backgroundColor: WidgetStatePropertyAll(
+                      Theme.of(context).colorScheme.primaryContainer)),
               onPressed: _submitData,
-              child: const Text('Save Changes'),
+              child: const Text(
+                'Save Changes',
+                style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 16,
+                    color: Colors.black),
+              ),
             ),
           ],
         ),
